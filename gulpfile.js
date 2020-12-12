@@ -179,6 +179,7 @@ gulp.task('write-service-worker', (cb) => {
       // Add/remove glob patterns to match your directory setup.
       `${dist_folder}assets/js/homework/*.js`,
       `${dist_folder}assets/css/**/*.css`
+      `${dist_folder}assets/images/**/*.*`
     ],
     // Translates a static file path to the relative URL that it's served from.
     // This is '/' rather than path.sep because the paths returned from

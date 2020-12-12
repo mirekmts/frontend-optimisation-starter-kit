@@ -76,8 +76,8 @@
           }
 
 
-          &:not(.text--bg-grey), {
-          &:not(.text--bg-blue)
+          &:not(.text--bg-grey),
+          &:not(.text--bg-blue) {
 
             ul:not(.text__ul-downloads) li:before {
               background: url(/assets/images/homework/list-tick-blue.svg) no-repeat;
@@ -140,7 +140,8 @@
           /* paras */
           .small-text {
             font-size: .95em;
-            line-height: 1.6
+            line-height: 1.6;
+            color: $darkgrey2;
           }
 
           .medium-text {
@@ -183,8 +184,8 @@
 
 
           hr {
-            border: 0; 
-            height: 1px; 
+            border: 0;
+            height: 1px;
             background: url(/assets/images/homework/hr.png) no-repeat;
 
             margin: 2em 0;

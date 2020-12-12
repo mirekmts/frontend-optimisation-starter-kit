@@ -50,6 +50,14 @@
     })();
   </script>
   <!--End of Tawk.to Script-->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(function () { console.log("Service Worker Registered"); })
+        .catch(function (e) { console.log('something went wrong: ', e) })
+    }
+  </script>
 </head>
 
 <body>
@@ -216,7 +224,7 @@
         <img id="chart-1" src="/assets/images/homework/anim/chart-1.png" alt="Chart 1" />
         <img id="chart-2" src="/assets/images/homework/anim/chart-2.png" alt="Chart 2" />
         <img id="chart-3" src="/assets/images/homework/anim/chart-3.png" alt="Chart 3" />
-        <img id="email" src="/assets/images/homework/anim/email.png" alt="Email" />
+        <img id="email-image" src="/assets/images/homework/anim/email.png" alt="Email" />
       </div>
     </div>
     <a title="Slide down" class="btn btn--border-blue btn--arrow-down" href="#main">Slide down</a>
@@ -250,10 +258,10 @@
         </div>
 
         <div class="form__row">
-          <label for="iban-element">
+          <label for="iban-element-label">
             IBAN
           </label>
-          <div id="iban-element">
+          <div id="iban-element-label">
             <!-- A Stripe Element will be inserted here. -->
           </div>
         </div>
@@ -268,8 +276,8 @@
       <div class="layout">
         <h2 class="headline-2">Find out more</h2>
 
-        <iframe id="youtube_video" width="560" height="315" data-src="https://www.youtube.com/embed/W9-dlonF1JE"
-          frameborder="0"
+        <iframe title="Lekcja demo" id="youtube_video" width="560" height="315"
+          data-src="https://www.youtube.com/embed/W9-dlonF1JE" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
       </div>
@@ -578,15 +586,15 @@
       <div class="col-70 l-social-media__news-blog left">
         <div>
           <section class="l-home__news">
-            <h5 class="headline-6">News <span class="headline__see-all"><a title="See all news" href="/">See all
-                  news</a></span></h5>
+            <h4 class="headline-6">News <span class="headline__see-all"><a title="See all news" href="/">See all
+                  news</a></span></h4>
             <div class="news-list news-list--home text">
               <article>
                 <div>
                   <header>
                     <div class="item__time-cat"><time datetime="2014-11-27T12:00">Nov 27, 2014</time><span
                         class="item__cat"><a title="Events" href="/">Events</a></span></div>
-                    <h6 class="headline-7"><a href="/">Some event that happened on 2014 Amsterdam, Netherlands</a></h6>
+                    <h5 class="headline-7"><a href="/">Some event that happened on 2014 Amsterdam, Netherlands</a></h5>
                   </header>
                   <figure>
                     <img loading="lazy" src="/assets/images/homework/post3.png" alt="Post Cum">
@@ -606,7 +614,7 @@
                   <header>
                     <div class="item__time-cat"><time datetime="2014-11-09T12:00">Nov 09, 2014</time><span
                         class="item__cat"><a title="Events" href="/">Events</a></span></div>
-                    <h6 class="headline-7"><a href="/">Council Community Meeting 9-11 2014 Florida USA</a></h6>
+                    <h5 class="headline-7"><a href="/">Council Community Meeting 9-11 2014 Florida USA</a></h5>
                   </header>
                   <figure>
                     <img loading="lazy" src="/assets/images/homework/post4.png" alt="Post socilis">
@@ -626,8 +634,8 @@
                   <header>
                     <div class="item__time-cat"><time datetime="2014-10-07T12:00">Oct 07, 2014</time><span
                         class="item__cat"><a title="Events" href="">Events</a></span></div>
-                    <h6 class="headline-7"><a href="">European Community Meeting Maritim Hotel Berlin October 7-9, 2014
-                        Berlin, Germany</a></h6>
+                    <h5 class="headline-7"><a href="">European Community Meeting Maritim Hotel Berlin October 7-9, 2014
+                        Berlin, Germany</a></h5>
                   </header>
                   <figure>
                     <img loading="lazy" src="/assets/images/homework/post5.png" alt="Post naatoque">
