@@ -135,7 +135,7 @@ gulp.task('js-copy', () => {
 gulp.task('images', () => {
   return gulp.src([ src_assets_folder + 'images/**/*.+(png|jpg|jpeg|gif|svg|ico)' ], { since: gulp.lastRun('images') })
     .pipe(plumber())
-    /*.pipe(imagemin())*/
+    .pipe(imagemin())
     .pipe(gulp.dest(dist_assets_folder + 'images'))
     .pipe(browserSync.stream());
 });
@@ -205,20 +205,20 @@ gulp.task('generate-critical-css', (cb) => {
 });
 
 gulp.task(
-  'build', 
+  'build',
   gulp.series(
-    'clear', 
-    /*'html-minified'*/ 
-    'html', 
-    'sass', 
-    'less', 
-    'stylus', 
-    'js', 
-    'js-copy', 
-    'fonts', 
+    'clear',
+    /*'html-minified'*/
+    'html',
+    'sass',
+    'less',
+    'stylus',
+    'js',
+    'js-copy',
+    'fonts',
     'videos',
-    'extra-files', 
-    'images', 
+    'extra-files',
+    'images',
     /*'purgecss',*/
     /*'generate-critical-css',*/
     /*'generate-service-worker',*/
