@@ -220,7 +220,7 @@ gulp.task(
     'extra-files',
     'images',
     'purgecss',
-    /*'generate-critical-css',*/
+    'generate-critical-css',
     /*'generate-service-worker',*/
   )
 );
