@@ -208,7 +208,7 @@ gulp.task(
   'build',
   gulp.series(
     'clear',
-    /*'html-minified'*/
+    'html-minified',
     'html',
     'sass',
     'less',
