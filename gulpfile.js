@@ -221,7 +221,7 @@ gulp.task(
     'images',
     'purgecss',
     'generate-critical-css',
-    /*'generate-service-worker',*/
+    'generate-service-worker',
   )
 );
 
