@@ -122,7 +122,7 @@ require(['./main'], function (main) {
 
 
 			shortcuts: function() {
-				$('.l-shortcuts--home').clone().insertAfter('.l-shortcuts--home').addClass('sticky');
+				// $('.l-shortcuts--home').clone().insertAfter('.l-shortcuts--home').addClass('sticky');
 
 				$('.l-main').waypoint(function(direction) {
 				  if (direction == 'down')
