@@ -5,7 +5,6 @@ require(['./main'], function (main) {
 
 	require(['jquery', 'components/domReady', 'tweenmax', 'components/bxslider', 'waypoints', 'global'], function($, domReady, tweenmax, $bxslider, waypoints, global) {
 
-
 		var h = {
 
 			banner_anim: function() {
@@ -152,12 +151,191 @@ require(['./main'], function (main) {
         $("#youtube_video").attr('src', newsrc );
       },
 
+      load_script_async: function() {
+        var that = this
+        var scriptsExecuted = false;
+        var head = document.getElementsByTagName('head')[0] || document.documentElement;
+
+        function executeScripts() {
+            var fscripts = document.querySelectorAll('fscript');
+            [].forEach.call(fscripts, function(fscript) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.onload  = function(script) {
+                  if(script && script.path && script.path[0] && script.path[0].name === 'stripe') {
+                    that.paymentForms()
+                  }
+                }
+
+                if (fscript.hasAttributes()) {
+                    for (var attributeKey in fscript.attributes) {
+                        if (fscript.attributes.hasOwnProperty(attributeKey)) {
+                            script[ fscript.attributes[ attributeKey ].name ] = fscript.attributes[ attributeKey ].value || true;
+                            // script.name = 'mirek'
+                        }
+                    }
+                } else {
+                    script.appendChild( document.createTextNode( fscript.innerHTML ) );
+                }
+
+                head.insertBefore( script, head.firstChild );
+            });
+        }
+
+        function initScripts() {
+            if (scriptsExecuted) {
+                return;
+            }
+
+            scriptsExecuted = true;
+
+            setTimeout(function() {
+                if ('requestIdleCallback' in window) {
+                    requestIdleCallback(executeScripts, { timeout: 1000 });
+                } else {
+                    executeScripts();
+                }
+            }, 1000);
+        }
+
+        window.addEventListener('scroll', function() {
+            initScripts();
+        }, false);
+
+        document.onclick = function() {
+            initScripts();
+        };
+      },
+      paymentForms: function() {
+        var form = document.getElementById('payment-form');
+
+        if (!form) {
+          return;
+        }
+
+        var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+        // Create an instance of Elements.
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+        var style = {
+          base: {
+          color: '#32325d',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#aab7c4'
+          },
+          ':-webkit-autofill': {
+            color: '#32325d',
+          },
+          },
+          invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a',
+          ':-webkit-autofill': {
+            color: '#fa755a',
+          },
+          }
+        };
+
+        // Create an instance of the iban Element.
+        var iban = elements.create('iban', {
+          style: style,
+          supportedCountries: ['SEPA'],
+        });
+
+        // Add an instance of the iban Element into the `iban-element` <div>.
+        iban.mount('#iban-element');
+
+        var errorMessage = document.getElementById('error-message');
+        var bankName = document.getElementById('bank-name');
+
+        iban.on('change', function(event) {
+          // Handle real-time validation errors from the iban Element.
+          if (event.error) {
+          errorMessage.textContent = event.error.message;
+          errorMessage.classList.add('visible');
+          } else {
+          errorMessage.classList.remove('visible');
+          }
+
+          // Display bank name corresponding to IBAN, if available.
+          if (event.bankName) {
+          bankName.textContent = event.bankName;
+          bankName.classList.add('visible');
+          } else {
+          bankName.classList.remove('visible');
+          }
+        });
+
+        // Handle form submission.
+
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          showLoading();
+
+          var sourceData = {
+          type: 'sepa_debit',
+          currency: 'eur',
+          owner: {
+            name: document.querySelector('input[name="name"]').value,
+            email: document.querySelector('input[name="email"]').value,
+          },
+          mandate: {
+            // Automatically send a mandate notification email to your customer
+            // once the source is charged.
+            notification_method: 'email',
+          }
+          };
+
+          // Call `stripe.createSource` with the iban Element and additional options.
+          stripe.createSource(iban, sourceData).then(function(result) {
+          if (result.error) {
+            // Inform the customer that there was an error.
+            errorMessage.textContent = result.error.message;
+            errorMessage.classList.add('visible');
+            stopLoading();
+          } else {
+            // Send the Source to your server to create a charge.
+            errorMessage.classList.remove('visible');
+            stripeSourceHandler(result.source);
+          }
+          });
+        });
+      },
+
+      load_chat: function() {
+        $( '.fake-chat' ).on( 'click', function(element) {
+          var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+          var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+          // s1.async = true;
+          // s1.defer = true;
+          s1.src = 'https://embed.tawk.to/5fc2ba00920fc91564cb9b3c/default';
+          s1.charset = 'UTF-8';
+          s1.setAttribute('crossorigin', '*');
+          s1.onload = function() {
+            try {
+              Tawk_API.maximize()
+            } catch (error) {
+            }
+          }
+          s0.parentNode.insertBefore(s1, s0);
+        });
+      },
+
 			init: function() {
 				this.adjust_banner_height();
 				this.slider_features();
 				this.shortcuts();
         this.info_box_anim();
         this.load_yt_video();
+        this.load_chat();
+        this.load_script_async()
+
 
         $(document).load().scrollTop(0);
 				/* slide to main section (button under main banner) */
