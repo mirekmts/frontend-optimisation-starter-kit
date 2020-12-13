@@ -196,7 +196,7 @@ gulp.task('generate-critical-css', (cb) => {
     base: dist_folder,
     src: 'index.html',
     target: {
-      html: 'index.html',
+      html: 'index-critical.html',
       css: 'critical.css',
     },
     width: 1300,
