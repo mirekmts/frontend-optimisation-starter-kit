@@ -194,9 +194,9 @@ gulp.task('generate-critical-css', (cb) => {
   critical.generate({
     inline: true,
     base: dist_folder,
-    src: 'homework-homepage.html',
+    src: 'index.html',
     target: {
-      html: 'homework-homepage-critical.html',
+      html: 'index.html',
       css: 'critical.css',
     },
     width: 1300,
