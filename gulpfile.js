@@ -135,7 +135,7 @@ gulp.task('js-copy', () => {
 gulp.task('images', () => {
   return gulp.src([ src_assets_folder + 'images/**/*.+(png|jpg|jpeg|gif|svg|ico)' ], { since: gulp.lastRun('images') })
     .pipe(plumber())
-    /*.pipe(imagemin())*/
+    .pipe(imagemin())
     .pipe(gulp.dest(dist_assets_folder + 'images'))
     .pipe(browserSync.stream());
 });
@@ -172,13 +172,14 @@ gulp.task('write-service-worker', (cb) => {
     cacheId: 'optimised-frontend',
     // sw-toolbox.js needs to be listed first. It sets up methods used in runtime-caching.js.
     importScripts: [
-      src_folder + 'sw/sw-toolbox.js',
-      src_folder + 'sw/runtime-caching.js'
+      './assets/js/sw/sw-toolbox.js',
+      './assets/js/sw/runtime-caching.js',
     ],
     staticFileGlobs: [
       // Add/remove glob patterns to match your directory setup.
       `${dist_folder}assets/js/homework/*.js`,
-      `${dist_folder}assets/css/**/*.css`
+      `${dist_folder}assets/css/**/*.css`,
+      `${dist_folder}assets/images/**/*.*`
     ],
     // Translates a static file path to the relative URL that it's served from.
     // This is '/' rather than path.sep because the paths returned from
@@ -193,9 +194,9 @@ gulp.task('generate-critical-css', (cb) => {
   critical.generate({
     inline: true,
     base: dist_folder,
-    src: 'homework-homepage.html',
+    src: 'index.html',
     target: {
-      html: 'homework-homepage-critical.html',
+      html: 'index-critical.html',
       css: 'critical.css',
     },
     width: 1300,
@@ -205,23 +206,23 @@ gulp.task('generate-critical-css', (cb) => {
 });
 
 gulp.task(
-  'build', 
+  'build',
   gulp.series(
-    'clear', 
-    /*'html-minified'*/ 
-    'html', 
-    'sass', 
-    'less', 
-    'stylus', 
-    'js', 
-    'js-copy', 
-    'fonts', 
+    'clear',
+    'html-minified',
+    'html',
+    'sass',
+    'less',
+    'stylus',
+    'js',
+    'js-copy',
+    'fonts',
     'videos',
-    'extra-files', 
-    'images', 
-    /*'purgecss',*/
-    /*'generate-critical-css',*/
-    /*'generate-service-worker',*/
+    'extra-files',
+    'images',
+    'purgecss',
+    'generate-critical-css',
+    'generate-service-worker',
   )
 );
 
