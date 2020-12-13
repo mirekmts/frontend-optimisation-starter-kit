@@ -71,7 +71,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 
 					return false;
 				}
-				
+
 			});
 
 			var currentPageIsContact = function(){
@@ -106,7 +106,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 
 
 		magnific: function()
-		{	
+		{
 		        $('a.popup, .js-popup').on('click', function() {
 		        	var href = $(this).attr('href');
 		        	var type = href.substring(href.length-4, href.length);
@@ -137,7 +137,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 				      },
 					  callbacks: {
 					    close: function() {
-					    	
+
 					      if(clickedLinkClassName.indexOf('js-scrollToContent') > -1) {
 
 							var targetOffset = $('.main').offset().top;
@@ -155,7 +155,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 		},
 
 		searchbar: function() {
-			
+
 			function close_searchbar() {
 				$('.search .layout3').fadeOut(0);
 				$('.search').fadeOut(0);
@@ -197,7 +197,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 			var ua = navigator.userAgent.toLowerCase();
 			var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
 			var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
-			
+
 			if(isAndroid || isSafari) {
 			  	$('.page-section--global-map, .page-section--network').addClass('page-section--no-fixed-bg');
 			  	$('.resources-list__group, .info-box, .info-box__blue > div').addClass('fallback_no-flexbox');
@@ -232,7 +232,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 				}
 				//sets the limits for the first load
 				set_limits();
-				
+
 				function window_scroll(){
 					//if the window is within the threshold, begin movements
 					if( $window.scrollTop() >= window_min && $window.scrollTop() < window_max ){
@@ -243,7 +243,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 					}
 				}
 				$window.bind("scroll", window_scroll);
-				
+
 				/**
 				 * Handles moving the container if needed.
 				**/
@@ -255,11 +255,11 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 						var margin_top = $window.scrollTop() - $container.attr("data-min");
 						//margin it down!
 						$container.css("margin-top", margin_top);
-					//if the window scroll is below the minimum 
+					//if the window scroll is below the minimum
 					}else if( wst <= $container.attr("data-min") ){
 						//fix the container to the top.
 						$container.css("margin-top",0);
-					//if the window scroll is above the maximum 
+					//if the window scroll is above the maximum
 					}else if( wst > $container.attr("data-max") ){
 						//fix the container to the top
 						$container.css("margin-top", $container.attr("data-max")-$container.attr("data-min")+"px" );
@@ -271,10 +271,10 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 
 
 
-		scrollToID: function(id) 
+		scrollToID: function(id)
 		{
 			var path = window.location.pathname;
-			
+
 			if(path.indexOf('/resources/') == -1)
 			{
 				var offSet = 65;
@@ -287,7 +287,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 
 		hash_urls: function() {
 
-			domReady(function() 
+			domReady(function()
 			{
 				if(window.location.hash)
 				{
@@ -314,14 +314,14 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 		social_media_share: function() {
 			var deviceAgent = navigator.userAgent.toLowerCase();
 
-			var isTouchDevice = 
+			var isTouchDevice =
 			(deviceAgent.match(/(iphone|ipod|ipad)/) ||
-			deviceAgent.match(/(android)/)  || 
-			deviceAgent.match(/(iemobile)/) || 
-			deviceAgent.match(/iphone/i) || 
-			deviceAgent.match(/ipad/i) || 
-			deviceAgent.match(/ipod/i) || 
-			deviceAgent.match(/blackberry/i) || 
+			deviceAgent.match(/(android)/)  ||
+			deviceAgent.match(/(iemobile)/) ||
+			deviceAgent.match(/iphone/i) ||
+			deviceAgent.match(/ipad/i) ||
+			deviceAgent.match(/ipod/i) ||
+			deviceAgent.match(/blackberry/i) ||
 			deviceAgent.match(/bada/i));
 
 			if (isTouchDevice) {
@@ -365,113 +365,12 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
 			});
 		},
 
-		paymentForms: function() {
-			var form = document.getElementById('payment-form');
-
-			if (!form) {
-				return;
-			}
-			
-			var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
-
-			// Create an instance of Elements.
-			var elements = stripe.elements();
-			
-			// Custom styling can be passed to options when creating an Element.
-			// (Note that this demo uses a wider set of styles than the guide below.)
-			var style = {
-			  base: {
-				color: '#32325d',
-				fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-				fontSmoothing: 'antialiased',
-				fontSize: '16px',
-				'::placeholder': {
-				  color: '#aab7c4'
-				},
-				':-webkit-autofill': {
-				  color: '#32325d',
-				},
-			  },
-			  invalid: {
-				color: '#fa755a',
-				iconColor: '#fa755a',
-				':-webkit-autofill': {
-				  color: '#fa755a',
-				},
-			  }
-			};
-			
-			// Create an instance of the iban Element.
-			var iban = elements.create('iban', {
-			  style: style,
-			  supportedCountries: ['SEPA'],
-			});
-			
-			// Add an instance of the iban Element into the `iban-element` <div>.
-			iban.mount('#iban-element');
-			
-			var errorMessage = document.getElementById('error-message');
-			var bankName = document.getElementById('bank-name');
-			
-			iban.on('change', function(event) {
-			  // Handle real-time validation errors from the iban Element.
-			  if (event.error) {
-				errorMessage.textContent = event.error.message;
-				errorMessage.classList.add('visible');
-			  } else {
-				errorMessage.classList.remove('visible');
-			  }
-			
-			  // Display bank name corresponding to IBAN, if available.
-			  if (event.bankName) {
-				bankName.textContent = event.bankName;
-				bankName.classList.add('visible');
-			  } else {
-				bankName.classList.remove('visible');
-			  }
-			});
-			
-			// Handle form submission.
-			
-			form.addEventListener('submit', function(event) {
-			  event.preventDefault();
-			  showLoading();
-			
-			  var sourceData = {
-				type: 'sepa_debit',
-				currency: 'eur',
-				owner: {
-				  name: document.querySelector('input[name="name"]').value,
-				  email: document.querySelector('input[name="email"]').value,
-				},
-				mandate: {
-				  // Automatically send a mandate notification email to your customer
-				  // once the source is charged.
-				  notification_method: 'email',
-				}
-			  };
-			
-			  // Call `stripe.createSource` with the iban Element and additional options.
-			  stripe.createSource(iban, sourceData).then(function(result) {
-				if (result.error) {
-				  // Inform the customer that there was an error.
-				  errorMessage.textContent = result.error.message;
-				  errorMessage.classList.add('visible');
-				  stopLoading();
-				} else {
-				  // Send the Source to your server to create a charge.
-				  errorMessage.classList.remove('visible');
-				  stripeSourceHandler(result.source);
-				}
-			  });
-			});
-		},
 	};
 
 
   	return {
       	init: function() {
-
+          console.log('global')
 
       		global.megamenu();
       		global.searchbar();
@@ -480,7 +379,7 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
       		global.fallbacks();
       		global.marketo_popup();
       		global.social_media_share();
-			global.paymentForms();
+			// global.paymentForms();
 			global.animations();
 			global.ctaAds();
 
@@ -503,5 +402,5 @@ define(['components/domReady', 'components/flexbox_fallback', 'components/placeh
           	$('.btn').wrapInner('<span />');
       	}
   	};
-  
+
 });
