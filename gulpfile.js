@@ -171,10 +171,10 @@ gulp.task('write-service-worker', (cb) => {
     // Used to avoid cache conflicts when serving on localhost.
     cacheId: 'optimised-frontend',
     // sw-toolbox.js needs to be listed first. It sets up methods used in runtime-caching.js.
-    // importScripts: [
-    //   src_folder + 'sw/sw-toolbox.js',
-    //   dist_folder + 'assets/js/sw/runtime-caching.js',
-    // ],
+    importScripts: [
+      './assets/js/sw/sw-toolbox.js',
+      './assets/js/sw/runtime-caching.js',
+    ],
     staticFileGlobs: [
       // Add/remove glob patterns to match your directory setup.
       `${dist_folder}assets/js/homework/*.js`,
@@ -194,9 +194,9 @@ gulp.task('generate-critical-css', (cb) => {
   critical.generate({
     inline: true,
     base: dist_folder,
-    src: 'homework-homepage.html',
+    src: 'index.html',
     target: {
-      html: 'homework-homepage-critical.html',
+      html: 'index-critical.html',
       css: 'critical.css',
     },
     width: 1300,

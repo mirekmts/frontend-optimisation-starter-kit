@@ -9,8 +9,10 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="robots" content="noindex, nofollow">
 
-
-  <link href="/assets/css/homework/app.css" rel="stylesheet">
+  <link rel="preload" href="/assets/css/homework/app.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/homework/app.css">
+  </noscript>
 
   <link href="/favicon.ico" rel="icon">
 
@@ -22,6 +24,8 @@
   <script>try { Typekit.load(); } catch (e) { }</script>
 
   <script defer src="/assets/js/homework/vendor/jquery/dist/jquery.min.js"></script>
+  <!-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <!-- <script defer src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script> -->
   <script>var media_url = '/assets/', site_url = '/';</script>
   <script data-main="/assets/js/homework/home" src="/assets/js/homework/vendor/requirejs/require.js"></script>
 
